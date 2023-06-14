@@ -77,5 +77,12 @@ namespace Snake {
             Grid[tail.Row, tail.Col] = GridValue.Empty;
             snakePositions.RemoveLast();
         }
+
+        public void ChangeDirection(Direction dir) {
+            Dir = dir;
+        }
+
+
     }
 }
+  
