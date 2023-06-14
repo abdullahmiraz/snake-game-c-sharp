@@ -89,6 +89,11 @@ namespace Snake {
             DrawGrid();
             ScoreText.Text = $"SCORE {gameState.Score}";
         }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e) {
+
+        }
+
         private void DrawGrid() {
             for (int r = 0; r < rows; r++) {
                 for (int c = 0; c < cols; c++) {
