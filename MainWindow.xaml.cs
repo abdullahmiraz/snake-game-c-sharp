@@ -60,7 +60,7 @@ namespace Snake {
 
         private async Task GameLoop() {
             while (!gameState.GameOver) {
-                await Task.Delay(100);
+                await Task.Delay(200);
                 gameState.Move();
                 Draw();
             }
