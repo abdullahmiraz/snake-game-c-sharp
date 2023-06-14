@@ -34,12 +34,38 @@ namespace Snake {
             gameState = new GameState(rows, cols);
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
+        private async void Window_Loaded(object sender, RoutedEventArgs e) {
             Draw();
+            await GameLoop();
         }
-        private void Window_KeyDown(object sender, RoutedEventArgs e) {
+        private void Window_KeyDown(object sender, KeyEventArgs e) {
+            if (gameState.GameOver) {
+                return;
+            }
+            switch (e.Key) {
+                case Key.Left:
+                    gameState.ChangeDirection(Direction.Left);
+                    break;
+                case Key.Right:
+                    gameState.ChangeDirection(Direction.Right);
+                    break;
+                case Key.Up:
+                    gameState.ChangeDirection(Direction.Up);
+                    break;
+                case Key.Down:
+                    gameState.ChangeDirection(Direction.Down);
+                    break;
+            }
+        }
 
+        private async Task GameLoop() {
+            while (!gameState.GameOver) {
+                await Task.Delay(100);
+                gameState.Move();
+                Draw();
+            }
         }
+
 
         private Image[,] SetupGrid() {
             Image[,] images = new Image[rows, cols];
@@ -60,7 +86,8 @@ namespace Snake {
         }
 
         private void Draw() {
-            DrawGrid();  
+            DrawGrid();
+            ScoreText.Text = $"SCORE {gameState.Score}";
         }
         private void DrawGrid() {
             for (int r = 0; r < rows; r++) {
